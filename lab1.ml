@@ -257,7 +257,8 @@ let rec prods (lst : (int * int) list) : int list =
   | (x, y) :: tail -> (x * y) :: (prods tail) ;;
 
 let dotprod (a : int list) (b : int list) : int =
-  failwith "dotprod not implemented" ;;
+  sum (prods (zip a b))
+  ;;
 
 (*======================================================================
 Part 4: High-order functional programming with map, filter, and fold
@@ -315,14 +316,14 @@ Exercise 11: Reimplement sum using fold_left, naming it sum_ho (for
 ......................................................................*)
 
 let sum_ho (lst : int list) : int =
-  failwith "sum_ho not implemented" ;;
+  List.fold_left (+) 0 lst ;;
 
 (*......................................................................
 Exercise 12: Reimplement prods using map.
 ......................................................................*)
 
 let prods_ho (lst : (int * int) list) : int list =
-  failwith "prods_ho not implemented" ;;
+  List.map (fun (x,y) -> x * y) lst
   
 (*......................................................................
 Exercise 13: The OCaml List module provides, in addition to the map,
@@ -334,7 +335,7 @@ two lists to form the result list. Use map2 to reimplement zip.
 ......................................................................*)
 
 let zip_ho (x : int list) (y : int list) : (int * int) list =
-  failwith "sum_ho not implemented" ;;
+  List.map2 (fun x y -> (x,y)) x y ;;
 
 (*......................................................................
 Exercise 14: Define a function evens, using these higher-order
@@ -343,4 +344,4 @@ even numbers in its argument list.
 ......................................................................*)
    
 let evens : int list -> int list =
-  fun _ -> failwith "evens not implemented" ;;
+  List.filter (fun x -> x mod 2 = 0)
